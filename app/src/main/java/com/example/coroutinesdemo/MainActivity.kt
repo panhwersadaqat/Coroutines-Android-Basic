@@ -2,6 +2,7 @@ package com.example.coroutinesdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import kotlinx.coroutines.*
@@ -43,6 +44,15 @@ class MainActivity : AppCompatActivity() {
             }*/
 
 
+            //testing suspended function with coroutines
+            CoroutineScope(Dispatchers.Main).launch {
+                task1()
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                task2()
+            }
+
         }
 
 
@@ -56,5 +66,23 @@ class MainActivity : AppCompatActivity() {
         for(i in 1..1000000000L) {
 
         }
+    }
+
+    suspend fun task1() {
+        Log.d("TAG", "Starting task 1")
+        // yield is called for delay/suspend coroutine thread
+        yield()
+        //Another way to suspend function with time choice
+        //delay(1000)
+        Log.d("TAG", "Ending task 1")
+    }
+
+    suspend fun task2() {
+        Log.d("TAG", "Starting task 2")
+        // yield is called for delay/suspend coroutine thread
+        yield()
+        //Another way to suspend function with time choice
+        //delay(1000)
+        Log.d("TAG","Ending task 2")
     }
 }
